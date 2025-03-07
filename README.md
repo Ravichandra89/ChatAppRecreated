@@ -50,35 +50,61 @@ cd my-turborepo
 pnpm dev
 ```
 
-### Remote Caching
+# Real-Time Chat Application
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## Introduction
+This is a scalable and secure real-time chat application built using Node.js, WebSockets, and Redis. It supports one-on-one messaging, group chats, online presence indicators, offline message storage, and push notifications. Designed for performance and reliability, the application ensures seamless communication with geo-location-based server allocation, end-to-end encryption, and fault-tolerant architecture.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+---
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+## Requirements
+<img width="1140" alt="Screenshot 2024-12-12 at 8 46 33 PM" src="https://github.com/user-attachments/assets/d1e0701f-66e3-4567-abe8-23dcdaf8aa7e" />
 
-```
-cd my-turborepo
-npx turbo login
-```
+## System Design 
+![image](https://github.com/user-attachments/assets/5b8160b0-9a13-4144-8fca-663da40e89eb)
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Detailed Data Model Design
+<img width="1707" alt="Screenshot 2024-12-21 at 9 34 30 PM" src="https://github.com/user-attachments/assets/4acd391b-088e-4b23-8f86-bd8bc6f55583" />
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Erase Link : https://app.eraser.io/workspace/uHFHHHQwyXJ2JjkNkTwU
 
-```
-npx turbo link
-```
+## Services Breakdown
+<img width="1276" alt="Screenshot 2025-01-02 at 11 28 36 PM" src="https://github.com/user-attachments/assets/c2dfb45e-68e3-42ce-8fa5-4c513bab86ae" />
 
-## Useful Links
 
-Learn more about the power of Turborepo:
+## Tech Stack
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+### **Backend**
+- **Node.js**: Server runtime for handling chat logic and APIs.
+- **TypeScript**: Server Side Language for application.
+- **WebSockets**: Real-time bi-directional communication.
+- **Redis**: Pub/Sub system for managing online users and routing messages.
+- **PostgreSQL**: Database for storing user data, messages, and group details.
+- **Firebase Cloud Messaging (FCM)**: Push notifications for offline users.
+- **JWT**: Authentication and authorization.
+- **WebRTC**: For Vedio calling feature.
+
+### **DevOps**
+- **Docker**: Containerization of backend services.
+- **Kubernetes**: Orchestrating containerized services for scalability.
+- **NGINX**: Load balancer for WebSocket servers.
+
+### **Security**
+- **End-to-End Encryption (AES)**: Protects message content.
+- **HTTPS**: Ensures secure API communications.
+
+---
+
+## Application Flow
+1. **User Connection**: Users connect to WebSocket Servers via a Load Balancer, ensuring geo-distributed and optimal performance.
+2. **Message Routing**: WebSocket Servers query Redis to locate recipient connections and route messages in real time.
+3. **Offline Messages**:Undelivered messages are stored in the Database Server (MySQL) and delivered once users reconnect.
+4. **Push Notifications**: Offline users are notified of pending messages via Firebase Cloud Messaging (FCM).
+5. **Scalability**: Kubernetes enables horizontal scaling to handle increased traffic and load efficiently.
+6. **Security**: All communications are encrypted with secure protocols, ensuring user data protection.
+
+---
+
+## Summary
+This chat application is built to handle real-time communication needs with a focus on scalability, security, and performance. It is ideal for modern applications requiring seamless and reliable chat systems.
+
