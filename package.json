@@ -24,7 +24,9 @@
   "dependencies": {
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
+    "@types/uuid": "^10.0.0",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "uuid": "^11.1.0"
   }
 }
