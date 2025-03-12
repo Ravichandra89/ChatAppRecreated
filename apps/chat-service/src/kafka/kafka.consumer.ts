@@ -36,7 +36,7 @@ export const startConsumer = async () => {
     },
   });
 
-  console.log("✅ Kafka consumer started in chat-service");
+  console.log("✅ kafka Consumer has been started");
 };
 
 export const addPendingRequest = (
