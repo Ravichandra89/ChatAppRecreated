@@ -24,7 +24,7 @@ export const getUserWsServer = async (
 
       // Maintain the Timeout logic for fetching the I'd
       setTimeout(() => {
-        reject(new Error("Timeout fetching WebSocket server"));
+        reject(new Error("WebSocket server request timed out"));
       }, 5000);
     } catch (error) {
       console.error("❌ Error sending Kafka message:", error);
