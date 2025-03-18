@@ -73,7 +73,7 @@ const clients = new Map<string, WebSocket>();
 
 // Start the WebSocket server
 export const startWebSocketServer = () => {
-  const port = Number(process.env.PORT) || 8080;
+  const port = Number(process.env.PORT) || 9090;
   const wss = new WebSocketServer({ port });
   console.log(`WebSocket server running on port ${port}`);
 
