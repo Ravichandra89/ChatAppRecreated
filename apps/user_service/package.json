@@ -4,18 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -r dotenv/config  server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.4.1",
+    "@repo/prisma": "^1.0.0",
     "@types/bcrypt": "^5.0.2",
     "@types/crypto-js": "^4.2.2",
+    "@types/express": "^5.0.0",
     "@types/ioredis": "^4.28.10",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/kafkajs": "^1.8.2",
+    "@types/node": "^22.13.9",
     "@types/nodemailer": "^6.4.17",
     "@types/redis": "^4.0.10",
     "@types/socket.io": "^3.0.1",
@@ -24,19 +28,19 @@
     "crypto": "^1.0.1",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",
     "kafkajs": "^2.2.4",
     "nodemailer": "^6.9.16",
+    "prisma": "^6.4.1",
     "redis": "^4.7.0",
     "socket.io": "^4.8.1",
-    "ws": "^8.18.0",
-    "@repo/prisma": "^1.0.0",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.13.9",
-    "express": "^4.21.2",
-    "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
