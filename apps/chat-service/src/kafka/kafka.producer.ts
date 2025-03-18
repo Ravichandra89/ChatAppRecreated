@@ -80,7 +80,7 @@ export const sendMessageToWsServer = async (
 
       // Save the message
       await redisClient.rPush(
-        "offline-messages:${receiverId",
+        `offline-messages:${receiverId}`,
         JSON.stringify(offlineMessage)
       );
 
