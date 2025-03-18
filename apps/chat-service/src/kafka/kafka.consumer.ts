@@ -37,9 +37,10 @@ export const startConsumer = async () => {
         } else if (topic === "user-came-online") {
           const { userId } = data;
           console.log(
-            `🔔 User ${userId} came online, checking for offline messages...`
+            `🟢 User ${userId} is online. Checking for offline messages...`
           );
 
+          // Deliver stored offline messages
           await processOfflineMessages(userId);
         }
       } catch (error) {
@@ -49,7 +50,7 @@ export const startConsumer = async () => {
   });
 
   console.log(
-    "✅ Kafka consumer started in chat-service for handling WebSocket & user online events"
+    "✅ Kafka consumer started for handling WebSocket & user online events"
   );
 };
 
@@ -77,7 +78,7 @@ export const processOfflineMessages = async (userId: string) => {
       for (const msg of messages) {
         const messageObj = JSON.parse(msg);
 
-        // Send message to the WebSocket server (Replace 'ws-server-1' with actual server ID dynamically)
+        // Send message to the WebSocket server (Replace with actual server ID)
         await sendMessageToWsServer(
           "ws-server-1",
           messageObj.senderId,
@@ -92,7 +93,7 @@ export const processOfflineMessages = async (userId: string) => {
     }
   } catch (error) {
     console.error(
-      `❌ Error processing offline messages for user ${userId}`,
+      `❌ Error processing offline messages for user ${userId}:`,
       error
     );
   }
