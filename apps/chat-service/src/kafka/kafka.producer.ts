@@ -1,5 +1,6 @@
 import prisma from "@repo/prisma";
 import { Kafka, Message } from "kafkajs";
+import redisClient from "../config/redisClient";
 
 const kafka = new Kafka({
   clientId: "chat-service-producer",
@@ -50,16 +51,41 @@ export const sendMessageToWsServer = async (
   };
 
   try {
-    await sendMessage("ws-server-events", [
-      {
-        key: serverId,
-        value: JSON.stringify(payload),
-      },
-    ]);
+    // Check User Presence
+    const userStatus = await redisClient.get("user:${receiverId}:status");
 
-    console.log(
-      `Kafka: Sent deliver-message event to ws-server ${serverId} for receiver ${receiverId}`
-    );
+    if (userStatus === "online") {
+      await sendMessage("ws-server-events", [
+        {
+          key: serverId,
+          value: JSON.stringify(payload),
+        },
+      ]);
+
+      console.log(
+        `Kafka: Sent deliver-message event to ws-server ${serverId} for receiver ${receiverId}`
+      );
+    } else {
+      // When user offline save the message to the Redis database
+      console.log(
+        `🚫 User ${receiverId} is offline. Storing message in Redis.`
+      );
+
+      const offlineMessage = {
+        senderId,
+        receiverId,
+        message,
+        timestamp: new Date().toISOString(),
+      };
+
+      // Save the message
+      await redisClient.rPush(
+        "offline-messages:${receiverId",
+        JSON.stringify(offlineMessage)
+      );
+
+      console.log(`💾 Message stored for offline user ${receiverId}`);
+    }
   } catch (error) {
     console.error("Error sending message to ws-server", error);
   }
